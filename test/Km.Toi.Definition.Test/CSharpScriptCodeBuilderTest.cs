@@ -32,5 +32,13 @@ namespace Km.Toi.Definition.Test
             var code = new CSharpScriptCodeBuilder().Build(source);
             Assert.Equal(File.ReadAllText("TestFiles\\Strings.code.txt"), code);
         }
+
+        [Fact]
+        public void エクスクラメーションによるコメント()
+        {
+            var source = File.ReadAllText("TestFiles\\Comment.tmpl.sql");
+            var code = new CSharpScriptCodeBuilder().Build(source);
+            Assert.Equal(File.ReadAllText("TestFiles\\Comment.code.txt"), code);
+        }
     }
 }

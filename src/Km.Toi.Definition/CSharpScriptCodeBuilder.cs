@@ -56,11 +56,7 @@ namespace Km.Toi.Definition
             {
                 return true;
             }
-            if (builder[0] == '!') //code comment
-            {
-                return true;
-            }
-            stringBuilder.Append(builder.ToString()).AppendLine();
+            stringBuilder.Append(PrepareCodeText(builder.ToString(), false)).AppendLine();
             return true;
         }
 
@@ -103,12 +99,25 @@ namespace Km.Toi.Definition
             {
                 return true;
             }
-            if (builder[0] == '!') //code comment
-            {
-                return true;
-            }
-            stringBuilder.Append(builder.ToString()).AppendLine();
+            //if (builder[0] == '!') //code comment
+            //{
+            //    return true;
+            //}
+            stringBuilder.Append(PrepareCodeText(builder.ToString(), true)).AppendLine();
             return true;
+        }
+
+        private string PrepareCodeText(string value, bool isBlock = false)
+        {
+            if(value.Length > 1 && Char.IsWhiteSpace(value[1]))
+            {
+                var first = value[0];
+                if(first == '!') //comment
+                {
+                    return $"Context.Comment(\"{ReplaceNewLineCodeToEscapeCode(value.Substring(1).TrimStart())}\", {isBlock.ToString().ToLower()});";
+                }
+            }
+            return value;
         }
 
         private bool ReadText(LookAheadReader reader, StringBuilder stringBuilder)
@@ -159,9 +168,13 @@ namespace Km.Toi.Definition
             {
                 return true;
             }
-            var text = builder.ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
-            stringBuilder.Append($"Context.Text.Add(\"{text}\");").AppendLine();
+            stringBuilder.Append($"Context.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(builder.ToString())}\");").AppendLine();
             return true;
+        }
+
+        private string ReplaceNewLineCodeToEscapeCode(string value)
+        {
+            return value.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
         }
     }
 }

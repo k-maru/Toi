@@ -1,0 +1,7 @@
+﻿Context.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
+Context.Comment("this is line comment", false);
+ if(!string.IsNullOrEmpty(Context.Model.Name)) {
+Context.Text.Add("AND EMP.Name LIKE '%' + '--Foo' + '%'\r\n");
+Context.Comment("this is block comment\r\n", true);
+Context.Text.Add("\r\nAND EMP.Address = 'COMMENT /* IN */ AND ''--ESCAPE--''--'\r\n");
+ }
