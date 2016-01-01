@@ -99,10 +99,6 @@ namespace Km.Toi.Definition
             {
                 return true;
             }
-            //if (builder[0] == '!') //code comment
-            //{
-            //    return true;
-            //}
             stringBuilder.Append(PrepareCodeText(builder.ToString(), true)).AppendLine();
             return true;
         }
@@ -114,7 +110,8 @@ namespace Km.Toi.Definition
                 var first = value[0];
                 if(first == '!') //comment
                 {
-                    return $"Context.Comment(\"{ReplaceNewLineCodeToEscapeCode(value.Substring(1).TrimStart())}\", {isBlock.ToString().ToLower()});";
+                    var textTypeMethod = isBlock ? "Context.Text.GetBlockCommentTextType()" : "Context.Text.GetLineCommentTextType()";
+                    return $"Context.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(value.Substring(1).TrimStart())}\", {textTypeMethod});";
                 }
             }
             return value;

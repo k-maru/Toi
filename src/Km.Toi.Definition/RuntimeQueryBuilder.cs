@@ -14,6 +14,8 @@ namespace Km.Toi.Definition
 
         public static QueryDefinition Create<T>(string queryTemplate, T model)
         {
+            var code = new CSharpScriptCodeBuilder();
+            var scriptCode = code.Build(queryTemplate);
 
             return null;
         }
