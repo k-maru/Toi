@@ -7,9 +7,9 @@ namespace Km.Toi.Definition
 {
     public interface IQueryTextBuilder
     {
-        IQueryTextBuilder Add(string value);
+        IQueryTextBuilder Add(string value, TextType textType = TextType.Plain);
 
-        IQueryTextBuilder AddIf(bool condition, string value);
+        IQueryTextBuilder AddIf(bool condition, string value, TextType textType = TextType.Plain);
 
         string GetPrev();
 

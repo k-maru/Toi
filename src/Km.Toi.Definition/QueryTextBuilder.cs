@@ -61,9 +61,9 @@ namespace Km.Toi.Definition
             {
                 return $"--{this.value}{Environment.NewLine}";
             }
-            if (TextType == TextType.LineComment)
+            if (TextType == TextType.BlockComment)
             {
-                return $"/*{this.value}*/{Environment.NewLine}";
+                return $"/*{this.value}*/";
             }
             if (TextType == TextType.Plain)
             {
@@ -123,19 +123,19 @@ namespace Km.Toi.Definition
             this.parent = parent;
         }
 
-        public IQueryTextBuilder Add(string value)
+        public IQueryTextBuilder Add(string value, TextType textType = TextType.Plain)
         {
-            if (marker == null) texts.Add(new Text(value));
-            else marker.Add(value);
+            if (marker == null) texts.Add(new Text(value, textType));
+            else marker.Add(value, textType);
 
             return this;
         }
 
-        public IQueryTextBuilder AddIf(bool condition, string value)
+        public IQueryTextBuilder AddIf(bool condition, string value, TextType textType = TextType.Plain)
         {
             if (condition)
             {
-                Add(value);
+                Add(value, textType);
             }
 
             return this;
@@ -291,7 +291,7 @@ namespace Km.Toi.Definition
 
         public override string ToString()
         {
-            return texts.Where(t => !t.IsGroup ? true : t.Use).ConcatWith("");
+            return texts.Where(t => !t.IsGroup ? true : t.Use).Select(t => t.Value).ConcatWith("");
         }
 
         private bool HasMarker => marker != null;
