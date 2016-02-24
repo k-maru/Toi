@@ -1,0 +1,12 @@
+﻿Context.Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
+ if(!string.IsNullOrEmpty(Context.Model.Name) &&
+context.Model.Name == "/*") { // */
+
+Context.Builder.Text.Add("\r\nAND EMP.Name LIKE '%' + 'Foo'");
+
+Context.QueryParameter(
+nameof(Context.Model.Name), 
+Context.Model.Name);
+
+Context.Builder.Text.Add(" + '%'\r\n");
+ }
