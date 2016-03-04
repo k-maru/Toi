@@ -7,6 +7,6 @@ namespace Km.Toi.Template.Parser
 {
     public interface IQueryTemplateParser
     {
-        string Parse();
+        ParseResult Parse();
     }
 }

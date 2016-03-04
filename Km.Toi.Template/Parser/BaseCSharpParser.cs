@@ -17,29 +17,29 @@ namespace Km.Toi.Template.Parser
 
         protected string TemplateCode { get; }
 
-        public string Parse()
+        public ParseResult Parse()
         {
             var reader = new LookAheadReader(new StringReader(this.TemplateCode), 3);
-            var stringBuilder = new StringBuilder();
+            var result = new Result();
             while (reader.Peek() > -1)
             {
-                if (ReadLineCode(reader, stringBuilder))
+                if (ReadLineCode(reader, result))
                 {
                     continue;
                 }
-                if (ReadBlockCode(reader, stringBuilder))
+                if (ReadBlockCode(reader, result))
                 {
                     continue;
                 }
-                ReadText(reader, stringBuilder);
+                ReadText(reader, result);
             }
-            var fragment = stringBuilder.ToString();
-            return PrepareCodeFragment(fragment);
+            var fragment = result.Texts.ToString();
+            return PrepareCodeFragment(fragment, result.Usings);
         }
 
-        protected abstract string PrepareCodeFragment(string fagment);
+        protected abstract ParseResult PrepareCodeFragment(string fagment, IEnumerable<string> usings);
 
-        private bool ReadLineCode(LookAheadReader reader, StringBuilder stringBuilder)
+        private bool ReadLineCode(LookAheadReader reader, Result result)
         {
             var top2 = string.Concat((char)reader.Peek(), (char)reader.Peek(1));
             if (top2 != "--")
@@ -67,11 +67,12 @@ namespace Km.Toi.Template.Parser
             {
                 return true;
             }
-            stringBuilder.Append(PrepareCodeText(builder.ToString(), false)).AppendLine();
+            PrepareCodeText(result, builder.ToString(), false);
+            result.Texts.AppendLine();
             return true;
         }
 
-        private bool ReadBlockCode(LookAheadReader reader, StringBuilder stringBuilder)
+        private bool ReadBlockCode(LookAheadReader reader, Result result)
         {
             var top2 = string.Concat((char)reader.Peek(), (char)reader.Peek(1));
             if (top2 != "/*")
@@ -110,11 +111,12 @@ namespace Km.Toi.Template.Parser
             {
                 return true;
             }
-            stringBuilder.Append(PrepareCodeText(builder.ToString(), true)).AppendLine();
+            PrepareCodeText(result, builder.ToString(), true);
+            result.Texts.AppendLine();
             return true;
         }
 
-        private string PrepareCodeText(string value, bool isBlock = false)
+        private void PrepareCodeText(Result result, string value, bool isBlock = false)
         {
             if (value.Length > 1 && Char.IsWhiteSpace(value[1]))
             {
@@ -123,23 +125,32 @@ namespace Km.Toi.Template.Parser
                 {
                     if (isBlock)
                     {
-                        return $"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");";
+                        result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");");
+                        return;
                     }
                     else
                     {
-                        return $"Context.Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");";
+                        result.Texts.Append($"Context.Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");");
+                        return;
                     }
                 }
                 if (first == '+' && isBlock)
                 {
                     //HINT句(Oracle/MySQL)
-                    return $"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");";
+                   result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");");
+                    return;
+                }
+                if(first == 'i')
+                {
+                    //using
+                    result.Usings.Add(value.Substring(1).Trim());
+                    return;
                 }
             }
-            return value;
+            result.Texts.Append(value);
         }
 
-        private bool ReadText(LookAheadReader reader, StringBuilder stringBuilder)
+        private bool ReadText(LookAheadReader reader, Result result)
         {
             var builder = new StringBuilder();
             var inText = false;
@@ -187,7 +198,7 @@ namespace Km.Toi.Template.Parser
             {
                 return true;
             }
-            stringBuilder.Append($"Context.Builder.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(builder.ToString())}\");").AppendLine();
+            result.Texts.Append($"Context.Builder.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(builder.ToString())}\");").AppendLine();
             return true;
         }
 
@@ -196,5 +207,11 @@ namespace Km.Toi.Template.Parser
             return value.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
         }
 
+        private class Result
+        {
+            public StringBuilder Texts { get; } = new StringBuilder();
+
+            public List<string> Usings { get; } = new List<string>();
+        }
     }
 }

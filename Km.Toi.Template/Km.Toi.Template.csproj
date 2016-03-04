@@ -97,6 +97,7 @@
     <Compile Include="Parser\CSharpScriptCodeParser.cs" />
     <Compile Include="Parser\IQueryTemplateParser.cs" />
     <Compile Include="Parser\LookAheadReader.cs" />
+    <Compile Include="Parser\ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryDefinitionBuilderExtensions.cs" />
     <Compile Include="QueryDefinition.cs" />

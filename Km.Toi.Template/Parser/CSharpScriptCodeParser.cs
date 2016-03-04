@@ -12,9 +12,9 @@ namespace Km.Toi.Template.Parser
 
         }
 
-        protected override string PrepareCodeFragment(string fagment)
+        protected override ParseResult PrepareCodeFragment(string fragment, IEnumerable<string> usings)
         {
-            return fagment;
+            return new ParseResult(fragment, usings);
         }
     }
 }

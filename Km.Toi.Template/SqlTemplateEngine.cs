@@ -10,11 +10,14 @@ using Km.Toi.Template.Builders;
 using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 using System.IO;
+using System.Collections.Concurrent;
 
 namespace Km.Toi.Template
 {
     public class SqlTemplateEngine
     {
+        private static ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>> pool = new ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>>(); 
+
         public async Task<QueryDefinition> ExecuteAsync<T>(string queryTemplate, T model)
         {
             return await ExecuteAsync(queryTemplate, model, TemplateOptions.Default);
@@ -22,17 +25,21 @@ namespace Km.Toi.Template
 
         public async Task<QueryDefinition> ExecuteAsync<T>(string queryTemplate, T model, TemplateOptions options)
         {
-            string loc = typeof(T).GetTypeInfo().Assembly.Location;
-            var parser = new CSharpScriptCodeParser(File.ReadAllText(queryTemplate));
-            var scriptOptions = ScriptOptions.Default.AddReferences(
-                 typeof(SqlTemplateEngine).GetTypeInfo().Assembly,
-                 typeof(T).GetTypeInfo().Assembly
-            ).AddImports("Km.Toi.Template");
+            
+            var runner = pool.GetOrAdd(Tuple.Create(queryTemplate, typeof(T)), v =>
+            {
+                var parser = new CSharpScriptCodeParser(queryTemplate);
+                var parseResult = parser.Parse();
+                var scriptOptions = ScriptOptions.Default.AddReferences(
+                     typeof(SqlTemplateEngine).GetTypeInfo().Assembly,
+                     typeof(T).GetTypeInfo().Assembly
+                ).AddImports("Km.Toi.Template").AddImports(parseResult.Imports);
+
+                return CSharpScript.Create(parseResult.Code, scriptOptions, typeof(Globals<T>)).CreateDelegate();
+            });
 
             var global = new Globals<T>(model, new QueryDefinitionBuilder(options));
-            //var script = CSharpScript.Create(parser.Parse(), options, typeof(Globals<T>), )
-            await CSharpScript.EvaluateAsync(parser.Parse(), scriptOptions, global, typeof(Globals<T>)).ConfigureAwait(false);
-
+            await runner(global);
             return global.Context.Builder.Build();
         }
     }

@@ -14,32 +14,41 @@ namespace Km.Toi.Template.Test.Parser
         public void シンプルな読み込み()
         {
             var source = File.ReadAllText("TestFiles\\Simple.tmpl.sql");
-            var code = new CSharpScriptCodeParser(source).Parse();
-            Assert.Equal(File.ReadAllText("TestFiles\\Simple.code.txt"), code);
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\Simple.code.txt"), result.Code);
         }
 
         [Fact]
         public void ブロックコメントのネスト()
         {
             var source = File.ReadAllText("TestFiles\\NestComment.tmpl.sql");
-            var code = new CSharpScriptCodeParser(source).Parse();
-            Assert.Equal(File.ReadAllText("TestFiles\\NestComment.code.txt"), code);
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\NestComment.code.txt"), result.Code);
         }
 
         [Fact]
         public void SQLの文字列内のコメントとエスケープ()
         {
             var source = File.ReadAllText("TestFiles\\Strings.tmpl.sql");
-            var code = new CSharpScriptCodeParser(source).Parse();
-            Assert.Equal(File.ReadAllText("TestFiles\\Strings.code.txt"), code);
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\Strings.code.txt"), result.Code);
         }
 
         [Fact]
         public void エクスクラメーションによるコメント()
         {
             var source = File.ReadAllText("TestFiles\\Comment.tmpl.sql");
-            var code = new CSharpScriptCodeParser(source).Parse();
-            Assert.Equal(File.ReadAllText("TestFiles\\Comment.code.txt"), code);
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\Comment.code.txt"), result.Code);
+        }
+
+        [Fact]
+        public void iによるインポート()
+        {
+            var source = File.ReadAllText("TestFiles\\Simple-using.tmpl.sql");
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\Simple-using.code.txt"), result.Code);
+            Assert.Equal(result.Imports.First(), "Km.Toi.Template.Test");
         }
     }
 }
