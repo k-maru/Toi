@@ -1,7 +1,7 @@
-﻿Context.Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
-Context.Builder.Text.Add("-- this is line comment");
- if(!string.IsNullOrEmpty(Context.Model.Name)) {
-Context.Builder.Text.Add("AND EMP.Name LIKE '%' + '--Foo' + '%'\r\n");
-Context.Builder.Text.Add("/*\r\nthis is block comment\r\n*/");
-Context.Builder.Text.Add("\r\nAND EMP.Address = 'COMMENT /* IN */ AND ''--ESCAPE--''--'\r\n");
+﻿Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
+Builder.Text.Add("-- this is line comment");
+ if(!string.IsNullOrEmpty(Model.Name)) {
+Builder.Text.Add("AND EMP.Name LIKE '%' + '--Foo' + '%'\r\n");
+Builder.Text.Add("/*\r\nthis is block comment\r\n*/");
+Builder.Text.Add("\r\nAND EMP.Address = 'COMMENT /* IN */ AND ''--ESCAPE--''--'\r\n");
  }

@@ -25,7 +25,6 @@ namespace Km.Toi.Template
 
         public async Task<QueryDefinition> ExecuteAsync<T>(string queryTemplate, T model, TemplateOptions options)
         {
-            
             var runner = pool.GetOrAdd(Tuple.Create(queryTemplate, typeof(T)), v =>
             {
                 var parser = new CSharpScriptCodeParser(queryTemplate);
@@ -40,7 +39,7 @@ namespace Km.Toi.Template
 
             var global = new Globals<T>(model, new QueryDefinitionBuilder(options));
             await runner(global);
-            return global.Context.Builder.Build();
+            return global.Builder.Build();
         }
     }
 
@@ -48,22 +47,13 @@ namespace Km.Toi.Template
     {
         public Globals(T model, QueryDefinitionBuilder builder)
         {
-            this.Context = new Context<T>(model, builder);
-        }
-
-        public Context<T> Context { get; }
-
-    }
-
-    public class Context<T>
-    {
-        public Context(T model, QueryDefinitionBuilder builder)
-        {
             this.Model = model;
             this.Builder = builder;
         }
+
         public T Model { get; }
 
         public QueryDefinitionBuilder Builder { get; }
+
     }
 }

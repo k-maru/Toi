@@ -123,19 +123,19 @@ namespace Km.Toi.Template.Parser
                 {
                     if (isBlock)
                     {
-                        result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");").AppendLine();
+                        result.Texts.Append($"Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");").AppendLine();
                         return;
                     }
                     else
                     {
-                        result.Texts.Append($"Context.Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");").AppendLine();
+                        result.Texts.Append($"Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");").AppendLine();
                         return;
                     }
                 }
                 if (first == '+' && isBlock)
                 {
                     //HINT句(Oracle/MySQL)
-                    result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");").AppendLine();
+                    result.Texts.Append($"Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");").AppendLine();
                     return;
                 }
                 if(first == 'i')
@@ -196,7 +196,7 @@ namespace Km.Toi.Template.Parser
             {
                 return true;
             }
-            result.Texts.Append($"Context.Builder.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(builder.ToString())}\");").AppendLine();
+            result.Texts.Append($"Builder.Text.Add(\"{ReplaceNewLineCodeToEscapeCode(builder.ToString())}\");").AppendLine();
             return true;
         }
 

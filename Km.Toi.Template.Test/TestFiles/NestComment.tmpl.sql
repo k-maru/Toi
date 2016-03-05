@@ -1,11 +1,11 @@
 ﻿SELECT * FROM EMP
 WHERE 1 = 1
-/* if(!string.IsNullOrEmpty(Context.Model.Name) &&
-context.Model.Name == "/*") { // */
+/* if(!string.IsNullOrEmpty(Model.Name) &&
+Model.Name == "/*") { // */
 */
 AND EMP.Name LIKE '%' + 'Foo'/*
-Context.QueryParameter(
-nameof(Context.Model.Name), 
-Context.Model.Name);
+QueryParameter(
+nameof(Model.Name), 
+Model.Name);
 */ + '%'
 -- }

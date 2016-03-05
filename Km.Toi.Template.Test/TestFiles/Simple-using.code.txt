@@ -1,7 +1,7 @@
-﻿Context.Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
- if(!string.IsNullOrEmpty(Context.Model.Name)) {
-Context.Builder.Text.Add("AND EMP.Name LIKE '%' + 'Foo'");
- Context.Builder.ToParameter(nameof(Context.Model.Name), Context.Model.Name); 
-Context.Builder.Text.Add(" + '%'\r\n");
+﻿Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
+ if(!string.IsNullOrEmpty(Model.Name)) {
+Builder.Text.Add("AND EMP.Name LIKE '%' + 'Foo'");
+ Builder.ToParameter(nameof(Model.Name), Model.Name); 
+Builder.Text.Add(" + '%'\r\n");
  }
- Context.Builder.CustomExtension("Hello"); 
+ Builder.CustomExtension("Hello"); 
