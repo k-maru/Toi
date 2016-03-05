@@ -68,7 +68,6 @@ namespace Km.Toi.Template.Parser
                 return true;
             }
             PrepareCodeText(result, builder.ToString(), false);
-            result.Texts.AppendLine();
             return true;
         }
 
@@ -112,7 +111,6 @@ namespace Km.Toi.Template.Parser
                 return true;
             }
             PrepareCodeText(result, builder.ToString(), true);
-            result.Texts.AppendLine();
             return true;
         }
 
@@ -125,19 +123,19 @@ namespace Km.Toi.Template.Parser
                 {
                     if (isBlock)
                     {
-                        result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");");
+                        result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}*/\");").AppendLine();
                         return;
                     }
                     else
                     {
-                        result.Texts.Append($"Context.Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");");
+                        result.Texts.Append($"Context.Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");").AppendLine();
                         return;
                     }
                 }
                 if (first == '+' && isBlock)
                 {
                     //HINT句(Oracle/MySQL)
-                   result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");");
+                    result.Texts.Append($"Context.Builder.Text.Add(\"/*{ReplaceNewLineCodeToEscapeCode(value)}*/\");").AppendLine();
                     return;
                 }
                 if(first == 'i')
@@ -147,7 +145,7 @@ namespace Km.Toi.Template.Parser
                     return;
                 }
             }
-            result.Texts.Append(value);
+            result.Texts.Append(value).AppendLine();
         }
 
         private bool ReadText(LookAheadReader reader, Result result)

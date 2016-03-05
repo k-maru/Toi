@@ -240,6 +240,28 @@ namespace Km.Toi.Template.Test.Builders
             Assert.Equal("BarBaz", builder.Build().QueryText);
         }
 
+        [Fact]
+        public void 直前のテキストを置き換えられる()
+        {
+            var builder = new QueryDefinitionBuilder();
 
+            builder.StartBlock("Block1");
+            builder.Text.Add("Foo");
+            Assert.Equal("Foo", builder.Text.Prev());
+            builder.Text.ReplacePrev(v => "Foo1");
+            Assert.Equal("Foo1", builder.Text.Prev());
+            builder.Text.Add("Bar");
+            Assert.Equal("Bar", builder.Text.Prev());
+            builder.EndBlock();
+            Assert.Null(builder.Text.Prev());
+            builder.Text.Add("Baz");
+            Assert.Equal("Baz", builder.Text.Prev());
+            builder.Text.ReplacePrev(v => "Baz1");
+            Assert.Equal("Baz1", builder.Text.Prev());
+
+            builder.UseBlock("Block1");
+
+            Assert.Equal("Foo1BarBaz1", builder.Build().QueryText);
+        }
     }
 }

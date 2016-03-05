@@ -19,13 +19,13 @@ namespace Km.Toi.Template
 
         public string DbType { get; set; }
 
-        public byte Precision { get; set; }
+        public byte? Precision { get; set; }
 
-        public byte Scale { get; set; }
+        public byte? Scale { get; set; }
 
-        public int Size { get; set; }
+        public int? Size { get; set; }
 
-        public bool IsNullable { get; set; }
+        public bool? IsNullable { get; set; }
 
     }
 }

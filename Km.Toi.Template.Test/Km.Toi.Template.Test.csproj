@@ -58,6 +58,7 @@
     <Compile Include="Builders\QueryDefinitionBuilderTest.cs" />
     <Compile Include="Parser\CSharpScriptCodeParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryDefinitionBuilderExtensionsTest.cs" />
     <Compile Include="SqlTemplateEngineTest.cs" />
     <Compile Include="TestExtensions.cs" />
   </ItemGroup>

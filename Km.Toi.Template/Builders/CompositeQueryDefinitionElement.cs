@@ -61,32 +61,30 @@ namespace Km.Toi.Template.Builders
             else
             {
                 var targetIndex = elements.FindLastIndex(e => e.ElementType == elemType);
-                if(targetIndex < 0)
+                if (targetIndex < 0)
                 {
                     return;
                 }
                 elements.RemoveAt(targetIndex);
-                
+
             }
         }
 
         public void ReplacePrev(IQueryDefinitionElement element)
         {
-            if(blockElement != null)
+            if (blockElement != null)
             {
-                if (blockElement != null)
+                blockElement.ReplacePrev(element);
+            }
+            else
+            {
+                var targetIndex = elements.FindLastIndex(e => e.ElementType == element.ElementType);
+                if (targetIndex < 0)
                 {
-                    blockElement.ReplacePrev(element);
+                    return;
                 }
-                else
-                {
-                    var targetIndex = elements.FindLastIndex(e => e.ElementType == element.ElementType);
-                    if (targetIndex < 0)
-                    {
-                        return;
-                    }
-                    elements.Insert(targetIndex, element);
-                }
+                elements.RemoveAt(targetIndex);
+                elements.Insert(targetIndex, element);
             }
         }
 

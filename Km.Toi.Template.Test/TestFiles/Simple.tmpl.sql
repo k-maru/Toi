@@ -1,5 +1,5 @@
 ﻿SELECT * FROM EMP
 WHERE 1 = 1
 -- if(!string.IsNullOrEmpty(Context.Model.Name)) {
-AND EMP.Name LIKE '%' + 'Foo'/* Context.Builder.ToParameter(nameof(Context.Model.Name), Context.Model.Name); */ + '%'
+AND EMP.Name LIKE '%' + 'Foo'/* Context.Builder.ToParameter("Name", Context.Model.Name); */ + '%'
 -- }

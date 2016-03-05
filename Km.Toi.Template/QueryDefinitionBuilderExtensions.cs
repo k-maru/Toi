@@ -10,7 +10,10 @@ namespace Km.Toi.Template
 {
     public static class QueryDefinitionBuilderExtensions
     {
-        public static void ToParameter(this IQueryDefinitionBuilder self, string parameterName, object value)
+        public static void ToParameter(this IQueryDefinitionBuilder self, 
+            string parameterName, object value,
+            string dbType = null, byte? precision = null,
+            byte? scale = null, int? size = null, bool? isNullable = null)
         {
             self.Text.ReplacePrev(val =>
             {
@@ -18,13 +21,16 @@ namespace Km.Toi.Template
                 var parameterText = string.Format(self.Options.ParameterFormat, parameterName);
                 if (target.EndsWith("'"))
                 {
-                    target = Regex.Replace(target, "\\'[^\\']+$", parameterText);
+                    target = Regex.Replace(target, "\'(\'{2}|[^\'])+?\'$", parameterText);
                 }
                 else
                 {
-                    target = Regex.Replace(target, "(\\(|\\s[^\\(\\s]+$", parameterText);
+                    target = Regex.Replace(target, "((?<=[\\s\\=\\<\\>\\(\\,])|^)[^\\s\\=\\<\\>\\(\\,]+$", parameterText);
                 }
-                self.Parameter.Add(new ParameterDefinition(parameterName, value));
+                self.Parameter.Add(new ParameterDefinition(parameterName, value)
+                {
+                    DbType = dbType, Precision = precision, Scale = scale, Size = size, IsNullable = isNullable
+                });
                 return target;
             });
         }
