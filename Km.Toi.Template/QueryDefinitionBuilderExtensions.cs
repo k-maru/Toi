@@ -27,12 +27,41 @@ namespace Km.Toi.Template
                 {
                     target = Regex.Replace(target, "((?<=[\\s\\=\\<\\>\\(\\,])|^)[^\\s\\=\\<\\>\\(\\,]+$", parameterText);
                 }
-                self.Parameter.Add(new ParameterDefinition(parameterName, value)
+                self.Parameter.Add(new ParameterDefinition(parameterText, value)
                 {
                     DbType = dbType, Precision = precision, Scale = scale, Size = size, IsNullable = isNullable
                 });
                 return target;
             });
+        }
+
+        public static void ToInParameter<T>(this IQueryDefinitionBuilder self,
+            string parameterPrefix, IEnumerable<T> values,
+            string dbType = null, byte? precision = null,
+            byte? scale = null, int? size = null, bool? isNullable = null)
+        {
+            if (values == null || !values.Any()) throw new ArgumentNullException("values");
+
+            var paramDefinitions = values.Select((v, i) =>
+            {
+                var parameterText = string.Format(self.Options.ParameterFormat, $"{parameterPrefix}{i}");
+                return new ParameterDefinition(parameterText, v)
+                {
+                    DbType = dbType,
+                    Precision = precision,
+                    Scale = scale,
+                    Size = size,
+                    IsNullable = isNullable
+                };
+            });
+            self.Text.ReplacePrev(v =>
+            {
+                return $"{v.Substring(0, v.LastIndexOf("("))}( {paramDefinitions.Select(p => p.Name).ConcatWith(", ")}";
+            });
+            foreach(var p in paramDefinitions)
+            {
+                self.Parameter.Add(p);
+            }
         }
     }
 }

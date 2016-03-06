@@ -22,9 +22,9 @@ namespace Km.Toi.Template.Builders
             return this.builder;
         }
 
-        public IQueryDefinitionBuilder Add(string text, object value)
+        public IQueryDefinitionBuilder Add(string name, object value)
         {
-            this.Add(new ParameterDefinition(text, value));
+            this.Add(new ParameterDefinition(name, value));
             return this.builder;
         }
 

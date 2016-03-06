@@ -27,5 +27,6 @@ namespace Km.Toi.Template
 
         public bool? IsNullable { get; set; }
 
+        public Direction? Direction { get; set; }
     }
 }

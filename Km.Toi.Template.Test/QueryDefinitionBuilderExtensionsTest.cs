@@ -113,5 +113,25 @@ namespace Km.Toi.Template.Test
             Assert.Equal("ABC", def.Parameters[0].Value);
 
         }
+
+        [Fact]
+        public void ToInParameterでIEnumerableをパラメーターにできる()
+        {
+            var builder = new QueryDefinitionBuilder(TemplateOptions.Default);
+            builder.Text.Add("( 123,456,789 ");
+            builder.ToInParameter("Foo", new[] { 111, 222, 333 });
+            builder.Text.Add(" )");
+
+            var def = builder.Build();
+            Assert.Equal("( @Foo0, @Foo1, @Foo2 )", def.QueryText);
+            Assert.Equal(3, def.Parameters.Count);
+            Assert.Equal("@Foo0", def.Parameters[0].Name);
+            Assert.Equal(111, def.Parameters[0].Value);
+            Assert.Equal("@Foo1", def.Parameters[1].Name);
+            Assert.Equal(222, def.Parameters[1].Value);
+            Assert.Equal("@Foo2", def.Parameters[2].Name);
+            Assert.Equal(333, def.Parameters[2].Value);
+
+        }
     }
 }
