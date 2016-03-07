@@ -43,7 +43,7 @@ namespace Km.Toi.Template.Builders
 
         public QueryDefinition Build()
         {
-            var queryText = root.GetText();
+            var queryText = root.GetText().Trim();
             var result = new QueryDefinition(queryText);
             result.Parameters.AddRange(root.GetParameters());
             return result;

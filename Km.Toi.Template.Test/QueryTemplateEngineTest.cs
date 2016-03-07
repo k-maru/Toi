@@ -7,12 +7,12 @@ using Xunit;
 
 namespace Km.Toi.Template.Test
 {
-    public class SqlTemplateEngineTest
+    public class QueryTemplateEngineTest
     {
         [Fact]
         public async Task 実行1()
         {
-            var engine = new SqlTemplateEngine();
+            var engine = new QueryTemplateEngine();
             var definition = await engine.ExecuteAsync(File.ReadAllText("TestFiles\\Simple.tmpl.sql"), 
                 new User() { Name = "Foo" }).ConfigureAwait(false);
             var text = definition.QueryText;
@@ -21,7 +21,7 @@ namespace Km.Toi.Template.Test
         [Fact]
         public async Task usingの指定()
         {
-            var engine = new SqlTemplateEngine();
+            var engine = new QueryTemplateEngine();
             var definition = await engine.ExecuteAsync(File.ReadAllText("TestFiles\\Simple-using.tmpl.sql"), 
                 new User() { Name = "Foo" }).ConfigureAwait(false);
             var text = definition.QueryText;

@@ -14,7 +14,7 @@ using System.Collections.Concurrent;
 
 namespace Km.Toi.Template
 {
-    public class SqlTemplateEngine
+    public class QueryTemplateEngine
     {
         private static ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>> pool = new ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>>(); 
 
@@ -30,9 +30,9 @@ namespace Km.Toi.Template
                 var parser = new CSharpScriptCodeParser(queryTemplate);
                 var parseResult = parser.Parse();
                 var scriptOptions = ScriptOptions.Default.AddReferences(
-                     typeof(SqlTemplateEngine).GetTypeInfo().Assembly,
+                     typeof(QueryTemplateEngine).GetTypeInfo().Assembly,
                      typeof(T).GetTypeInfo().Assembly
-                ).AddImports("Km.Toi.Template").AddImports(parseResult.Imports);
+                ).AddImports("Km.Toi.Template", "System", "System.Linq").AddImports(parseResult.Imports);
 
                 return CSharpScript.Create(parseResult.Code, scriptOptions, typeof(Globals<T>)).CreateDelegate();
             });

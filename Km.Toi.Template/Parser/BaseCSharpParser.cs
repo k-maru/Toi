@@ -128,7 +128,7 @@ namespace Km.Toi.Template.Parser
                     }
                     else
                     {
-                        result.Texts.Append($"Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\");").AppendLine();
+                        result.Texts.Append($"Builder.Text.Add(\"--{ReplaceNewLineCodeToEscapeCode(value.Substring(1))}\\r\\n\");").AppendLine();
                         return;
                     }
                 }
