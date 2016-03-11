@@ -46,7 +46,6 @@ namespace TestApp.Sql
                             Console.WriteLine($"{reader.GetInt32(0)}, {reader.GetString(1)}, {reader.GetString(2)}");
                         }
                     }
-                    DbType
                 }
             }).Wait();
  
