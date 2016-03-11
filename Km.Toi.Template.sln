@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template", "Km.Toi.Template.csproj", "{0716FD9A-8F15-4B92-BF04-47B294D9B2FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template", "Km.Toi.Template\Km.Toi.Template.csproj", "{0716FD9A-8F15-4B92-BF04-47B294D9B2FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template.Test", "..\Km.Toi.Template.Test\Km.Toi.Template.Test.csproj", "{9458A6A5-A102-45D8-A4B9-F4AADF0D8C1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template.Test", "Km.Toi.Template.Test\Km.Toi.Template.Test.csproj", "{9458A6A5-A102-45D8-A4B9-F4AADF0D8C1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApp", "TestApp", "{26F63F7F-22F3-4374-B17B-DC32EE5DF78E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp.Sql", "..\TestApp.Sql\TestApp.Sql.csproj", "{E3362AF0-5E54-4F82-B253-5DB31442526F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp.Sql", "TestApp.Sql\TestApp.Sql.csproj", "{E3362AF0-5E54-4F82-B253-5DB31442526F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
