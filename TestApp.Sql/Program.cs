@@ -1,6 +1,7 @@
 ﻿using Km.Toi.Template;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace TestApp.Sql
                     command.CommandText = def.QueryText;
                     command.Parameters.AddRange(def.Parameters.Select(p =>
                     {
-                        return new SqlParameter(p.Name, p.Value);
+                        var parameter = new SqlParameter(p.Name, p.Value);
+                        return parameter;
                     }).ToArray());
                     await connection.OpenAsync();
                     using (var reader = await command.ExecuteReaderAsync())
@@ -44,6 +46,7 @@ namespace TestApp.Sql
                             Console.WriteLine($"{reader.GetInt32(0)}, {reader.GetString(1)}, {reader.GetString(2)}");
                         }
                     }
+                    DbType
                 }
             }).Wait();
  

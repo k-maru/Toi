@@ -88,6 +88,7 @@
     <Compile Include="Builders\QueryParameterElement.cs" />
     <Compile Include="Builders\QueryTextAppender.cs" />
     <Compile Include="Builders\QueryTextElement.cs" />
+    <Compile Include="DbTypeName.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="IQueryBuilder.cs" />
