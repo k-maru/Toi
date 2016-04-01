@@ -1,0 +1,9 @@
+﻿Builder.Text.Add("SELECT * FROM EMP\r\nWHERE 1 = 1\r\n");
+Builder.Text.Add("-- this is line comment\r\n");
+ if(!string.IsNullOrEmpty(Model.Name)) {
+Builder.Text.Add("AND EMP.Name LIKE '%' + '--Foo' + '%'\r\n");
+Builder.Text.Add( OR EMP.ShortName LIKE );
+Builder.Text.Add("\r\n\r\n");
+ }
+Builder.Text.Add("/*\r\nthis is block comment\r\n*/");
+Builder.Text.Add("\r\n");

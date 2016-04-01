@@ -50,5 +50,13 @@ namespace Km.Toi.Template.Test.Parser
             Assert.Equal(File.ReadAllText("TestFiles\\Simple-using.code.txt"), result.Code);
             Assert.Equal(result.Imports.First(), "Km.Toi.Template.Test");
         }
+
+        [Fact]
+        public void ハテナによるSQL文字の展開()
+        {
+            var source = File.ReadAllText("TestFiles\\Question.tmpl.sql");
+            var result = new CSharpScriptCodeParser(source).Parse();
+            Assert.Equal(File.ReadAllText("TestFiles\\Question.code.txt"), result.Code);
+        }
     }
 }

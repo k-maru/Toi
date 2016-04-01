@@ -132,6 +132,11 @@ namespace Km.Toi.Template.Parser
                         return;
                     }
                 }
+                if(first == '?') //sql text
+                {
+                    result.Texts.Append($"Builder.Text.Add({ReplaceNewLineCodeToEscapeCode(value.Substring(1))});").AppendLine();
+                    return;
+                }
                 if (first == '+' && isBlock)
                 {
                     //HINT句(Oracle/MySQL)
