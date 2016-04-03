@@ -46,7 +46,7 @@
     <Compile Include="TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Km.Toi.Template\Km.Toi.Template.csproj">
+    <ProjectReference Include="..\..\src\Km.Toi.Template\Km.Toi.Template.csproj">
       <Project>{0716fd9a-8f15-4b92-bf04-47b294d9b2fe}</Project>
       <Name>Km.Toi.Template</Name>
     </ProjectReference>

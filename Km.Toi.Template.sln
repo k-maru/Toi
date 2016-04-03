@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template", "Km.Toi.Template\Km.Toi.Template.csproj", "{0716FD9A-8F15-4B92-BF04-47B294D9B2FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template", "src\Km.Toi.Template\Km.Toi.Template.csproj", "{0716FD9A-8F15-4B92-BF04-47B294D9B2FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template.Test", "Km.Toi.Template.Test\Km.Toi.Template.Test.csproj", "{C479404A-C52F-42C8-B698-ABD29CBA416A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.Template.Test", "test\Km.Toi.Template.Test\Km.Toi.Template.Test.csproj", "{C479404A-C52F-42C8-B698-ABD29CBA416A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9D171611-370C-4AEE-B631-83C298273614}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BEC473B3-F363-4033-8BFD-9F912D0051C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +28,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0716FD9A-8F15-4B92-BF04-47B294D9B2FE} = {9D171611-370C-4AEE-B631-83C298273614}
+		{C479404A-C52F-42C8-B698-ABD29CBA416A} = {BEC473B3-F363-4033-8BFD-9F912D0051C9}
 	EndGlobalSection
 EndGlobal
