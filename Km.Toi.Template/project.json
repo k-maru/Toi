@@ -1,0 +1,12 @@
+{
+  "frameworks": {
+    "net461": { }
+  },
+  "runtimes": {
+    "win": { },
+    "win-anycpu": { }
+  },
+  "dependencies": {
+    "Microsoft.CodeAnalysis.CSharp.Scripting": "1.2.1"
+  }
+}
