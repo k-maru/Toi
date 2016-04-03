@@ -51,7 +51,7 @@ namespace Km.Toi.Template.Parser
         {
             if (pos < 0 || pos >= lookAheadCount)
             {
-                throw new ArgumentOutOfRangeException("pos");
+                throw new ArgumentOutOfRangeException(nameof(pos));
             }
             if (!isInitialized)
             {

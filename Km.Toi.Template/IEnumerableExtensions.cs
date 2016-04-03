@@ -10,14 +10,14 @@ namespace Km.Toi.Template
     {
         public static string ConcatWith<T>(this IEnumerable<T> source, string separator)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return string.Join(separator, source);
         }
 
         public static string ConcatWith<T>(this IEnumerable<T> source, string separator, string format, IFormatProvider formatProvider = null)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (format == null) throw new ArgumentNullException("format");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (format == null) throw new ArgumentNullException(nameof(format));
             if (formatProvider != null)
             {
                 return source.Select(s => string.Format(formatProvider, format, s)).ConcatWith(separator);

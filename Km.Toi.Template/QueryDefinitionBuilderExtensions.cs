@@ -19,7 +19,7 @@ namespace Km.Toi.Template
             {
                 var target = val.TrimEnd();
                 var parameterText = string.Format(self.Options.ParameterFormat, parameterName);
-                if (target.EndsWith("'"))
+                if (target.EndsWith("'", StringComparison.InvariantCulture))
                 {
                     target = Regex.Replace(target, "\'(\'{2}|[^\'])+?\'$", parameterText);
                 }
@@ -40,7 +40,7 @@ namespace Km.Toi.Template
             string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null)
         {
-            if (values == null || !values.Any()) throw new ArgumentNullException("values");
+            if (values == null || !values.Any()) throw new ArgumentNullException(nameof(values));
 
             var paramDefinitions = values.Select((v, i) =>
             {
@@ -56,7 +56,7 @@ namespace Km.Toi.Template
             });
             self.Text.ReplacePrev(v =>
             {
-                return $"{v.Substring(0, v.LastIndexOf("("))}( {paramDefinitions.Select(p => p.Name).ConcatWith(", ")}";
+                return $"{v.Substring(0, v.LastIndexOf("(", StringComparison.InvariantCulture))}( {paramDefinitions.Select(p => p.Name).ConcatWith(", ")}";
             });
             foreach(var p in paramDefinitions)
             {
