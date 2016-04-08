@@ -4,7 +4,7 @@ WHERE 1 = 1
 Model.Name == "/*") { // */
 */
 AND EMP.Name LIKE '%' + 'Foo'/*
-QueryParameter(
+SqlParameter(
 nameof(Model.Name), 
 Model.Name);
 */ + '%'

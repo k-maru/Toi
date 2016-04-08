@@ -7,35 +7,35 @@ using Xunit;
 
 namespace Km.Toi.Template.Test.Builders
 {
-    public class QueryDefinitionBuilderTest
+    public class SqlDefinitionBuilderTest
     {
         [Fact]
         public void テキストを追加できる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .Text.Add("WHERE 1 = 1");
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1", def.SqlText);
         }
 
         [Fact]
         public void Useされていないブロック内のテキストは無視される()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
                     .EndBlock()
                     .Text.Add("AND 2 = 2");
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO AND 2 = 2", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO AND 2 = 2", def.SqlText);
         }
 
         [Fact]
         public void Useされたブロック内のテキストは追加される()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -44,13 +44,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Block 1");
 
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 2 = 2", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 2 = 2", def.SqlText);
         }
 
         [Fact]
         public void パラメーターを追加できる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                 .Text.Add("WHERE A = @A").Parameter.Add("A", 1);
 
@@ -63,7 +63,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void Useされていないブロック内のパラメーターは無視される()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE A = @A ").Parameter.Add("A", 1)
@@ -78,7 +78,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void Useされたブロック内のパラメーターは追加される()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE A = @A ").Parameter.Add("A", 1)
@@ -97,7 +97,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void ブロックのネストができる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -109,13 +109,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Block 1").UseBlock("Block 1-1");
 
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 2 = 2 AND 3 = 3", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 2 = 2 AND 3 = 3", def.SqlText);
         }
 
         [Fact]
         public void 親のブロックがUseされていない場合は子のブロックは利用されない()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -127,13 +127,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Block 1-1");
             
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO AND 3 = 3", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO AND 3 = 3", def.SqlText);
         }
 
         [Fact]
         public void 子のブロックがUseされていない場合は子のブロックは利用されない()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -145,13 +145,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Block 1");
 
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 3 = 3", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 3 = 3", def.SqlText);
         }
 
         [Fact]
         public void 同じ名前のブロックは一度にUseされる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -167,13 +167,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Block 1");
 
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 3 = 3 AND EXISTS SELECT 1 FROM BAR WHERE BAR.A = FOO.A AND BAR = 1" , def.QueryText);
+            Assert.Equal("SELECT * FROM FOO WHERE 1 = 1 AND 3 = 3 AND EXISTS SELECT 1 FROM BAR WHERE BAR.A = FOO.A AND BAR = 1" , def.SqlText);
         }
 
         [Fact]
         public void 存在しないブロック名をUseされても無視される()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                     .StartBlock("Block 1")
                         .Text.Add("WHERE 1 = 1 ")
@@ -182,13 +182,13 @@ namespace Km.Toi.Template.Test.Builders
                     .UseBlock("Miss!!");
 
             var def = builder.Build();
-            Assert.Equal("SELECT * FROM FOO AND 2 = 2", def.QueryText);
+            Assert.Equal("SELECT * FROM FOO AND 2 = 2", def.SqlText);
         }
 
         [Fact]
         public void 直前に設定されたテキストを取得できる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
             builder.Text.Add("SELECT * FROM FOO ")
                 .Text.Add("WHERE A = A");
 
@@ -198,7 +198,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void 直前に設定されたテキストがない場合はnullが返る()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
 
             Assert.Null(builder.Text.Prev());
         }
@@ -206,7 +206,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void 直前のテキスト取得はBlock事となる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
 
             builder.StartBlock("Block1");
             Assert.Null(builder.Text.Prev());
@@ -222,7 +222,7 @@ namespace Km.Toi.Template.Test.Builders
         [Fact]
         public void 直前のテキストを削除できる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
 
             builder.StartBlock("Block1");
             builder.Text.Add("Foo");
@@ -237,13 +237,13 @@ namespace Km.Toi.Template.Test.Builders
             Assert.Equal("Baz", builder.Text.Prev());
             builder.UseBlock("Block1");
 
-            Assert.Equal("BarBaz", builder.Build().QueryText);
+            Assert.Equal("BarBaz", builder.Build().SqlText);
         }
 
         [Fact]
         public void 直前のテキストを置き換えられる()
         {
-            var builder = new QueryDefinitionBuilder();
+            var builder = new SqlDefinitionBuilder();
 
             builder.StartBlock("Block1");
             builder.Text.Add("Foo");
@@ -261,7 +261,7 @@ namespace Km.Toi.Template.Test.Builders
 
             builder.UseBlock("Block1");
 
-            Assert.Equal("Foo1BarBaz1", builder.Build().QueryText);
+            Assert.Equal("Foo1BarBaz1", builder.Build().SqlText);
         }
     }
 }

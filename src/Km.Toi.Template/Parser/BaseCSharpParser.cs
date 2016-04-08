@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Parser
 {
-    public abstract class BaseCSharpParser: IQueryTemplateParser
+    public abstract class BaseCSharpParser: ISqlTemplateParser
     {
         private string parsedCode = null;
         public BaseCSharpParser(string templateCode)

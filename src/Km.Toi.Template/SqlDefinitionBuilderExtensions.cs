@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template
 {
-    public static class QueryDefinitionBuilderExtensions
+    public static class SqlDefinitionBuilderExtensions
     {
-        public static void ToParameter(this IQueryDefinitionBuilder self, 
+        public static void ToParameter(this ISqlDefinitionBuilder self, 
             string parameterName, object value,
             string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null)
@@ -35,7 +35,7 @@ namespace Km.Toi.Template
             });
         }
 
-        public static void ToInParameter<T>(this IQueryDefinitionBuilder self,
+        public static void ToInParameter<T>(this ISqlDefinitionBuilder self,
             string parameterPrefix, IEnumerable<T> values,
             string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null)

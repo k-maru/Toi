@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    class QueryTextElement : IQueryDefinitionTextElement
+    class SqlTextElement : ISqlDefinitionTextElement
     {
         private string text;
 
-        public QueryTextElement(string text)
+        public SqlTextElement(string text)
         {
             this.text = text;
         }
 
-        QueryDefinitionElementType IQueryDefinitionElement.ElementType { get; } = QueryDefinitionElementType.Text;
+        SqlDefinitionElementType ISqlDefinitionElement.ElementType { get; } = SqlDefinitionElementType.Text;
 
         public string GetText()
         {

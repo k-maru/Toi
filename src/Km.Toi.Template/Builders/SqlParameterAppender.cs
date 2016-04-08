@@ -5,30 +5,30 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    class QueryParameterAppender : IQueryParameterAppender
+    class SqlParameterAppender : ISqlParameterAppender
     {
-        private QueryDefinitionBuilder builder = null;
-        private CompositeQueryDefinitionElement elements = null;
+        private SqlDefinitionBuilder builder = null;
+        private CompositeSqlDefinitionElement elements = null;
 
-        public QueryParameterAppender(QueryDefinitionBuilder builder, CompositeQueryDefinitionElement elements)
+        public SqlParameterAppender(SqlDefinitionBuilder builder, CompositeSqlDefinitionElement elements)
         {
             this.builder = builder;
             this.elements = elements;
         }
 
-        public IQueryDefinitionBuilder Add(ParameterDefinition definition)
+        public ISqlDefinitionBuilder Add(ParameterDefinition definition)
         {
-            this.elements.Add(new QueryParameterElement(definition));
+            this.elements.Add(new SqlParameterElement(definition));
             return this.builder;
         }
 
-        public IQueryDefinitionBuilder Add(string name, object value)
+        public ISqlDefinitionBuilder Add(string name, object value)
         {
             this.Add(new ParameterDefinition(name, value));
             return this.builder;
         }
 
-        public IQueryDefinitionBuilder AddIf(bool condition, ParameterDefinition definition)
+        public ISqlDefinitionBuilder AddIf(bool condition, ParameterDefinition definition)
         {
             if (condition)
             {
@@ -37,7 +37,7 @@ namespace Km.Toi.Template.Builders
             return this.builder;
         }
 
-        public IQueryDefinitionBuilder AddIf(bool condition, string name, object value)
+        public ISqlDefinitionBuilder AddIf(bool condition, string name, object value)
         {
             if (condition)
             {

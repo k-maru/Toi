@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    public enum QueryDefinitionElementType
+    public enum SqlDefinitionElementType
     {
         Text,
         Parameter,

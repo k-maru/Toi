@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    class QueryParameterElement : IQueryDefinitionParameterElement, IParameterHolder
+    class SqlParameterElement : ISqlDefinitionParameterElement, IParameterHolder
     {
         private ParameterDefinition definition;
 
-        public QueryParameterElement(string name, object value)
+        public SqlParameterElement(string name, object value)
         {
             this.definition = new ParameterDefinition(name, value);
         }
 
-        public QueryParameterElement(ParameterDefinition definition)
+        public SqlParameterElement(ParameterDefinition definition)
         {
             this.definition = definition;
         }
 
 
-        QueryDefinitionElementType IQueryDefinitionElement.ElementType { get; } = QueryDefinitionElementType.Parameter;
+        SqlDefinitionElementType ISqlDefinitionElement.ElementType { get; } = SqlDefinitionElementType.Parameter;
 
         public IEnumerable<ParameterDefinition> GetParameters()
         {

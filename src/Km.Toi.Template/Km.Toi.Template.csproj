@@ -35,39 +35,38 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\CompositeQueryDefinitionElement.cs" />
+    <Compile Include="Builders\CompositeSqlDefinitionElement.cs" />
     <Compile Include="Builders\IParameterHolder.cs" />
-    <Compile Include="Builders\IQueryDefinitionBuilder.cs" />
-    <Compile Include="Builders\IQueryDefinitionElement.cs" />
-    <Compile Include="Builders\IQueryParameterAppender.cs" />
-    <Compile Include="Builders\IQueryTextAppender.cs" />
+    <Compile Include="Builders\ISqlDefinitionBuilder.cs" />
+    <Compile Include="Builders\ISqlDefinitionElement.cs" />
+    <Compile Include="Builders\ISqlParameterAppender.cs" />
+    <Compile Include="Builders\ISqlTextAppender.cs" />
     <Compile Include="Builders\ITextHolder.cs" />
-    <Compile Include="Builders\QueryDefinitionBuilder.cs" />
-    <Compile Include="Builders\QueryDefinitionElementType.cs" />
-    <Compile Include="Builders\QueryParameterAppender.cs" />
-    <Compile Include="Builders\QueryParameterElement.cs" />
-    <Compile Include="Builders\QueryTextAppender.cs" />
-    <Compile Include="Builders\QueryTextElement.cs" />
+    <Compile Include="Builders\SqlDefinitionBuilder.cs" />
+    <Compile Include="Builders\SqlDefinitionElementType.cs" />
+    <Compile Include="Builders\SqlParameterAppender.cs" />
+    <Compile Include="Builders\SqlParameterElement.cs" />
+    <Compile Include="Builders\SqlTextAppender.cs" />
+    <Compile Include="Builders\SqlTextElement.cs" />
     <Compile Include="DbTypeName.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
-    <Compile Include="IQueryBuilder.cs" />
     <Compile Include="ITemplateOptions.cs" />
     <Compile Include="ParameterDefinition.cs" />
     <Compile Include="Parser\BaseCSharpParser.cs" />
     <Compile Include="Parser\CSharpScriptCodeParser.cs" />
-    <Compile Include="Parser\IQueryTemplateParser.cs" />
+    <Compile Include="Parser\SqlTemplateParser.cs" />
     <Compile Include="Parser\LookAheadReader.cs" />
     <Compile Include="Parser\ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryDefinitionBuilderExtensions.cs" />
-    <Compile Include="QueryDefinition.cs" />
+    <Compile Include="SqlDefinitionBuilderExtensions.cs" />
+    <Compile Include="SqlDefinition.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="QueryTemplateEngine.cs" />
+    <Compile Include="SqlTemplateEngine.cs" />
     <Compile Include="TemplateOptions.cs" />
   </ItemGroup>
   <ItemGroup>

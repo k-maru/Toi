@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Parser
 {
-    public interface IQueryTemplateParser
+    public interface ISqlTemplateParser
     {
         ParseResult Parse();
     }

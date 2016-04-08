@@ -4,7 +4,7 @@ Model.Name == "/*") { // */
 
 Builder.Text.Add("\r\nAND EMP.Name LIKE '%' + 'Foo'");
 
-QueryParameter(
+SqlParameter(
 nameof(Model.Name), 
 Model.Name);
 

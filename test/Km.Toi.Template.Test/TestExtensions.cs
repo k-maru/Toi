@@ -9,7 +9,7 @@ namespace Km.Toi.Template.Test
 {
     public static class TestExtensions
     {
-        public static void CustomExtension(this IQueryDefinitionBuilder self, string message)
+        public static void CustomExtension(this ISqlDefinitionBuilder self, string message)
         {
             self.Text.Add(message);
         }

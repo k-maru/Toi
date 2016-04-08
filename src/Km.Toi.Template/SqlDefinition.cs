@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template
 {
-    public sealed class QueryDefinition
+    public sealed class SqlDefinition
     {
-        public QueryDefinition(string queryText)
+        public SqlDefinition(string sqlText)
         {
-            this.QueryText = queryText;
+            this.SqlText = sqlText;
         }
 
-        public string QueryText { get; set; }
+        public string SqlText { get; set; }
 
         public List<ParameterDefinition> Parameters { get; } = new List<ParameterDefinition>();
     }

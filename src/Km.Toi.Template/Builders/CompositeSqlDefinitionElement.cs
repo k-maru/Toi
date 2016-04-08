@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    class CompositeQueryDefinitionElement : IQueryDefinitionElement, ITextHolder, IParameterHolder
+    class CompositeSqlDefinitionElement : ISqlDefinitionElement, ITextHolder, IParameterHolder
     {
-        private IQueryDefinitionBuilder builder;
-        private CompositeQueryDefinitionElement blockElement;
-        private CompositeQueryDefinitionElement parent;
-        private List<IQueryDefinitionElement> elements = new List<IQueryDefinitionElement>();
+        private ISqlDefinitionBuilder builder;
+        private CompositeSqlDefinitionElement blockElement;
+        private CompositeSqlDefinitionElement parent;
+        private List<ISqlDefinitionElement> elements = new List<ISqlDefinitionElement>();
 
-        internal CompositeQueryDefinitionElement(IQueryDefinitionBuilder builder)
+        internal CompositeSqlDefinitionElement(ISqlDefinitionBuilder builder)
         {
             this.builder = builder;
             this.Use = true;
         }
 
-        public CompositeQueryDefinitionElement(IQueryDefinitionBuilder builder, CompositeQueryDefinitionElement parent, string name)
+        public CompositeSqlDefinitionElement(ISqlDefinitionBuilder builder, CompositeSqlDefinitionElement parent, string name)
         {
             this.builder = builder;
             this.Name = name;
@@ -27,13 +27,13 @@ namespace Km.Toi.Template.Builders
 
         private bool HasBlock => blockElement != null;
 
-        QueryDefinitionElementType IQueryDefinitionElement.ElementType { get; } = QueryDefinitionElementType.None;
+        SqlDefinitionElementType ISqlDefinitionElement.ElementType { get; } = SqlDefinitionElementType.None;
 
         public string Name { get; }
 
         private bool Use { get; set; }
 
-        public void Add(IQueryDefinitionElement element)
+        public void Add(ISqlDefinitionElement element)
         {
             if (blockElement != null)
             {
@@ -43,7 +43,7 @@ namespace Km.Toi.Template.Builders
             elements.Add(element);
         }
 
-        public IQueryDefinitionElement Prev(QueryDefinitionElementType elemType)
+        public ISqlDefinitionElement Prev(SqlDefinitionElementType elemType)
         {
             if (blockElement != null)
             {
@@ -52,7 +52,7 @@ namespace Km.Toi.Template.Builders
             return elements.LastOrDefault(e => e.ElementType == elemType);
         }
 
-        public void RemovePrev(QueryDefinitionElementType elemType)
+        public void RemovePrev(SqlDefinitionElementType elemType)
         {
             if (blockElement != null)
             {
@@ -70,7 +70,7 @@ namespace Km.Toi.Template.Builders
             }
         }
 
-        public void ReplacePrev(IQueryDefinitionElement element)
+        public void ReplacePrev(ISqlDefinitionElement element)
         {
             if (blockElement != null)
             {
@@ -96,7 +96,7 @@ namespace Km.Toi.Template.Builders
                 blockElement.StartBlock(name);
                 return;
             }
-            blockElement = new CompositeQueryDefinitionElement(this.builder, this, name);
+            blockElement = new CompositeSqlDefinitionElement(this.builder, this, name);
             this.elements.Add(blockElement);
         }
 
@@ -117,7 +117,7 @@ namespace Km.Toi.Template.Builders
 
         private void SetUseBlock(string name)
         {
-            foreach (var elem in this.elements.Where(elem => elem is CompositeQueryDefinitionElement).Cast<CompositeQueryDefinitionElement>())
+            foreach (var elem in this.elements.Where(elem => elem is CompositeSqlDefinitionElement).Cast<CompositeSqlDefinitionElement>())
             {
                 if (elem.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                 {
@@ -127,7 +127,7 @@ namespace Km.Toi.Template.Builders
             }
         }
 
-        private CompositeQueryDefinitionElement GetRoot()
+        private CompositeSqlDefinitionElement GetRoot()
         {
             if (this.parent != null)
             {
