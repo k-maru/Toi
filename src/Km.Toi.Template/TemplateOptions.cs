@@ -17,9 +17,7 @@ namespace Km.Toi.Template
 
         public string ParameterFormat { get; }
 
-        public TemplateOptions SetParameterFormat(string parameterFormat)
-        {
-            return new TemplateOptions(parameterFormat);
-        }
+        public TemplateOptions SetParameterFormat(string parameterFormat) => 
+            new TemplateOptions(parameterFormat);
     }
 }

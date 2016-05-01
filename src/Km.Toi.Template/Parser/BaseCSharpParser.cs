@@ -37,7 +37,7 @@ namespace Km.Toi.Template.Parser
             return PrepareCodeFragment(fragment, result.Usings);
         }
 
-        protected abstract ParseResult PrepareCodeFragment(string fagment, IEnumerable<string> usings);
+        protected abstract ParseResult PrepareCodeFragment(string fragment, IEnumerable<string> usings);
 
         private bool ReadLineCode(LookAheadReader reader, Result result)
         {
@@ -205,10 +205,8 @@ namespace Km.Toi.Template.Parser
             return true;
         }
 
-        private string ReplaceNewLineCodeToEscapeCode(string value)
-        {
-            return value.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
-        }
+        private string ReplaceNewLineCodeToEscapeCode(string value) =>
+            value.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
 
         private class Result
         {

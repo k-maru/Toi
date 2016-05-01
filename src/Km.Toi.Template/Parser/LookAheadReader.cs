@@ -73,9 +73,6 @@ namespace Km.Toi.Template.Parser
                 disposedValue = true;
             }
         }
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        public void Dispose() => Dispose(true);
     }
 }

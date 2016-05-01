@@ -16,9 +16,6 @@ namespace Km.Toi.Template.Builders
 
         SqlDefinitionElementType ISqlDefinitionElement.ElementType { get; } = SqlDefinitionElementType.Text;
 
-        public string GetText()
-        {
-            return this.text;
-        }
+        public string GetText() => this.text;
     }
 }

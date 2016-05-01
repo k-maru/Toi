@@ -1,0 +1,12 @@
+{
+  "frameworks": {
+    "net461": { }
+  },
+  "runtimes": {
+    "win": { },
+    "win-anycpu": { }
+  },
+  "dependencies": {
+    "EntityFramework": "6.1.3"
+  }
+}

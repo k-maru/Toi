@@ -16,12 +16,10 @@ namespace Km.Toi.Template
 {
     public class SqlTemplateEngine
     {
-        private static ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>> pool = new ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>>(); 
+        private static ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>> pool = new ConcurrentDictionary<Tuple<string, Type>, ScriptRunner<object>>();
 
-        public async Task<SqlDefinition> ExecuteAsync<T>(string sqlTemplate, T model)
-        {
-            return await ExecuteAsync(sqlTemplate, model, TemplateOptions.Default);
-        }
+        public async Task<SqlDefinition> ExecuteAsync<T>(string sqlTemplate, T model) =>
+            await ExecuteAsync(sqlTemplate, model, TemplateOptions.Default);
 
         public async Task<SqlDefinition> ExecuteAsync<T>(string sqlTemplate, T model, TemplateOptions options)
         {
