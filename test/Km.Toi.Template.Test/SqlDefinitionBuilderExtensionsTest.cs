@@ -118,7 +118,7 @@ namespace Km.Toi.Template.Test
         public void ToInParameterでIEnumerableをパラメーターにできる()
         {
             var builder = new SqlDefinitionBuilder(TemplateOptions.Default);
-            builder.Text.Add("( 123,456,789 ");
+            builder.Text.Add("( 123, 456, 789 ");
             builder.ToInParameter("Foo", new[] { 111, 222, 333 });
             builder.Text.Add(" )");
 

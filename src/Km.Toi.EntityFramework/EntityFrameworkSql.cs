@@ -21,26 +21,32 @@ namespace Km.Toi.EntityFramework
 
         public DbContext DbContext { get; }
 
-        public async Task<IEnumerable<TResult>> QueryAsync<TResult, TModel>(string template, TModel model)
+        public async Task<IEnumerable<TResult>> QueryAsync<TResult>(string template, object model = null)
         {
             var engine = new SqlTemplateEngine();
-            var definition = await engine.ExecuteAsync(File.ReadAllText(template), model);
+            var definition = 
+                model == null ?
+                    await engine.ExecuteAsync(File.ReadAllText(template)) :
+                    await engine.ExecuteAsync(File.ReadAllText(template), model);
 
             var tempCommand = this.DbContext.Database.Connection.CreateCommand();
-            var parameters = definition.Parameters.Select(p => MapDefinitionToDbParameter(p, tempCommand));
+            var parameters = definition.Parameters.Select(p => MapDefinitionToDbParameter(p, tempCommand)).ToArray();
             tempCommand.Parameters.Clear();
             tempCommand.Connection = null;
 
             return await this.DbContext.Database.SqlQuery<TResult>(definition.SqlText, parameters).ToListAsync();
         }
 
-        public async Task<int> ExecuteCommandAsync<TModel>(string template, TModel model)
+        public async Task<int> ExecuteCommandAsync(string template, object model = null)
         {
             var engine = new SqlTemplateEngine();
-            var definition = await engine.ExecuteAsync(File.ReadAllText(template), model);
+            var definition = 
+                model == null ?
+                    await engine.ExecuteAsync(File.ReadAllText(template)):
+                    await engine.ExecuteAsync(File.ReadAllText(template), model);
 
             var tempCommand = this.DbContext.Database.Connection.CreateCommand();
-            var parameters = definition.Parameters.Select(p => MapDefinitionToDbParameter(p, tempCommand));
+            var parameters = definition.Parameters.Select(p => MapDefinitionToDbParameter(p, tempCommand)).ToArray();
             tempCommand.Parameters.Clear();
             tempCommand.Connection = null;
 

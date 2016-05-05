@@ -1,4 +1,5 @@
 ﻿using Km.Toi.Template.Builders;
+using Km.Toi.Template.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace Km.Toi.Template
             string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null)
         {
+            Throws.NotEmpty(parameterName, nameof(parameterName));
+
             self.Text.ReplacePrev(val =>
             {
                 var target = val.TrimEnd();
@@ -27,7 +30,7 @@ namespace Km.Toi.Template
                 {
                     target = Regex.Replace(target, "((?<=[\\s\\=\\<\\>\\(\\,])|^)[^\\s\\=\\<\\>\\(\\,]+$", parameterText);
                 }
-                self.Parameter.Add(new ParameterDefinition(parameterText, value)
+                self.Parameter.Add(new ParameterDefinition(parameterName, value)
                 {
                     DbType = dbType, Precision = precision, Scale = scale, Size = size, IsNullable = isNullable
                 });
@@ -40,6 +43,8 @@ namespace Km.Toi.Template
             string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null)
         {
+            Throws.NotEmpty(parameterPrefix, nameof(parameterPrefix));
+
             if (values == null || !values.Any()) throw new ArgumentNullException(nameof(values));
 
             var paramDefinitions = values.Select((v, i) =>

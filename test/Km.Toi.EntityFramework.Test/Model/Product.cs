@@ -16,7 +16,7 @@ namespace Km.Toi.EntityFramework.Test.Model
 
         public string ProductName { get; set; }
         
-        public int SupplierID { get; set; }
+        public int? SupplierID { get; set; }
 
         public int? CategoryID { get; set; }
 
@@ -24,7 +24,7 @@ namespace Km.Toi.EntityFramework.Test.Model
 
         public decimal? UnitPrice { get; set; }
 
-        public short UnitsInStock { get; set; }
+        public short? UnitsInStock { get; set; }
 
         public short? UnitsOnOrder { get; set; }
 

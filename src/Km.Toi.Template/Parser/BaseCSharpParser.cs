@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Km.Toi.Template.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Km.Toi.Template.Parser
         private string parsedCode = null;
         public BaseCSharpParser(string templateCode)
         {
+            Throws.NotEmpty(templateCode, nameof(templateCode));
+
             this.TemplateCode = templateCode;
         }
 

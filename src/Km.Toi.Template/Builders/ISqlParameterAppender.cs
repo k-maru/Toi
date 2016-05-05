@@ -14,6 +14,5 @@ namespace Km.Toi.Template.Builders
         ISqlDefinitionBuilder AddIf(bool condition, string name, object value);
 
         ISqlDefinitionBuilder AddIf(bool condition, ParameterDefinition definition);
-
     }
 }

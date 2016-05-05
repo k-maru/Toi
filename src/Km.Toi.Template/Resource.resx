@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentIsNullOrWhitespace" xml:space="preserve">
+    <value>引数 "{0}" には null 、空文字または空白文字のみの値を使用できません。 </value>
+  </data>
   <data name="BlockNameNotFound" xml:space="preserve">
     <value>指定されたブロック名がは設定されていません。</value>
   </data>
   <data name="DuplicateBlockName" xml:space="preserve">
     <value>指定されたブロック名は既に設定されています。</value>
+  </data>
+  <data name="ModelIsMustBePublic" xml:space="preserve">
+    <value>パラメーターモデルクラスはパブリックである必要があります。</value>
   </data>
 </root>

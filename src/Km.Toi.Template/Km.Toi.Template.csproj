@@ -50,7 +50,7 @@
     <Compile Include="Builders\SqlTextElement.cs" />
     <Compile Include="DbTypeName.cs" />
     <Compile Include="Direction.cs" />
-    <Compile Include="IEnumerableExtensions.cs" />
+    <Compile Include="Utilities\IEnumerableExtensions.cs" />
     <Compile Include="ITemplateOptions.cs" />
     <Compile Include="ParameterDefinition.cs" />
     <Compile Include="Parser\BaseCSharpParser.cs" />
@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="SqlTemplateEngine.cs" />
     <Compile Include="TemplateOptions.cs" />
+    <Compile Include="Utilities\Throws.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource.resx">
@@ -78,6 +79,7 @@
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

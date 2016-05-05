@@ -61,6 +61,15 @@ namespace Km.Toi.Template {
         }
         
         /// <summary>
+        ///   引数 &quot;{0}&quot; には null 、空文字または空白文字のみの値を使用できません。  に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ArgumentIsNullOrWhitespace {
+            get {
+                return ResourceManager.GetString("ArgumentIsNullOrWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   指定されたブロック名がは設定されていません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BlockNameNotFound {
@@ -75,6 +84,15 @@ namespace Km.Toi.Template {
         internal static string DuplicateBlockName {
             get {
                 return ResourceManager.GetString("DuplicateBlockName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   パラメーターモデルクラスはパブリックである必要があります。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ModelIsMustBePublic {
+            get {
+                return ResourceManager.GetString("ModelIsMustBePublic", resourceCulture);
             }
         }
     }

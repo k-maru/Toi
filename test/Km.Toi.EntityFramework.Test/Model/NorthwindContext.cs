@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Data.SQLite.EF6;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,22 @@ namespace Km.Toi.EntityFramework.Test.Model
 
         }
 
-        public static NorthwindContext Create()
+        public static NorthwindContext CreateSQLite()
         {
             var factory = new SQLiteProviderFactory();
             var connection = factory.CreateConnection();
             connection.ConnectionString = "Data Source=Northwind.db";
             return new NorthwindContext(connection);
         }
-        
+
+        public static NorthwindContext CreateSqlServer()
+        {
+            var connection = new SqlConnection();
+            connection.ConnectionString = "Data Source=(LocalDb)\\MSSQLLocalDB;AttachDBFilename=|DataDirectory|\\Northwind.mdf";
+            Database.SetInitializer<NorthwindContext>(new NullDatabaseInitializer<NorthwindContext>());
+            return new NorthwindContext(connection);
+        }
+
         //public NorthwindContext(DbContextOptions options)
         //    : base(options)
         //{
