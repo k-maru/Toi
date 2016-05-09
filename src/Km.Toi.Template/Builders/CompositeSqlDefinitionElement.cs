@@ -161,5 +161,13 @@ namespace Km.Toi.Template.Builders
                 .Cast<IParameterHolder>()
                 .SelectMany(e => e.GetParameters());
         }
+
+        public IEnumerable<ParameterDefinition> GetAllParameters()
+        {
+            return this.elements
+                .Where(e => e is IParameterHolder)
+                .Cast<IParameterHolder>()
+                .SelectMany(e => e.GetAllParameters());
+        }
     }
 }

@@ -45,7 +45,8 @@ namespace Km.Toi.Template
                 var scriptOptions = ScriptOptions.Default.AddReferences(
                      typeof(SqlTemplateEngine).GetTypeInfo().Assembly,
                      modelType.GetTypeInfo().Assembly
-                ).AddImports("Km.Toi.Template", "System", "System.Linq").AddImports(parseResult.Imports);
+                ).AddImports("Km.Toi.Template", "System", "System.Linq")
+                .AddImports(parseResult.Imports);
 
                 return CSharpScript.Create(parseResult.Code, scriptOptions, globalsType).CreateDelegate();
             });
@@ -58,7 +59,8 @@ namespace Km.Toi.Template
         public async Task<SqlDefinition> ExecuteAsync(string sqlTemplate) =>
             await ExecuteAsync(sqlTemplate, TemplateOptions.Default);
 
-        public async Task<SqlDefinition> ExecuteAsync(string sqlTemplate, TemplateOptions options) => await ExecuteAsync(sqlTemplate, new EmptyTemplateParameterModel(), options);
+        public async Task<SqlDefinition> ExecuteAsync(string sqlTemplate, TemplateOptions options) => 
+            await ExecuteAsync(sqlTemplate, new EmptyTemplateParameterModel(), options);
     
 
         private void ValidateModel(Type modelType, object model)

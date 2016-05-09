@@ -49,7 +49,9 @@
     <Compile Include="Builders\SqlTextAppender.cs" />
     <Compile Include="Builders\SqlTextElement.cs" />
     <Compile Include="DbTypeName.cs" />
+    <Compile Include="DbTypeNameMap.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="SqlTemplateException.cs" />
     <Compile Include="Utilities\IEnumerableExtensions.cs" />
     <Compile Include="ITemplateOptions.cs" />
     <Compile Include="ParameterDefinition.cs" />

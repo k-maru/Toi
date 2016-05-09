@@ -11,6 +11,14 @@ namespace Km.Toi.Template
 {
     public static class SqlDefinitionBuilderExtensions
     {
+        private static readonly string DefaultAutoParameterNameFormat = "p{0}";
+
+        public static void ToAutoNameParameter(this ISqlDefinitionBuilder self,
+            object value, string dbType = null, byte? precision = null,
+            byte? scale = null, int? size = null, bool? isNullable = null) =>
+                ToParameter(self, CreateAutoParameterName(self), value, dbType, precision, scale, size, isNullable);
+
+
         public static void ToParameter(this ISqlDefinitionBuilder self, 
             string parameterName, object value,
             string dbType = null, byte? precision = null,
@@ -30,6 +38,15 @@ namespace Km.Toi.Template
                 {
                     target = Regex.Replace(target, "((?<=[\\s\\=\\<\\>\\(\\,])|^)[^\\s\\=\\<\\>\\(\\,]+$", parameterText);
                 }
+                if (string.IsNullOrEmpty(dbType) && value != null)
+                {
+                    var map = DbTypeNameMap.Default();
+                    var valueType = value.GetType();
+                    if (map.ContainsKey(valueType))
+                    {
+                        dbType = map[valueType];
+                    }
+                }
                 self.Parameter.Add(new ParameterDefinition(parameterName, value)
                 {
                     DbType = dbType, Precision = precision, Scale = scale, Size = size, IsNullable = isNullable
@@ -37,6 +54,11 @@ namespace Km.Toi.Template
                 return target;
             });
         }
+
+        public static void ToAutoNameInParameter<T>(this ISqlDefinitionBuilder self,
+            IEnumerable<T> values, string dbType = null, byte? precision = null,
+            byte? scale = null, int? size = null, bool? isNullable = null) =>
+                ToInParameter(self, CreateAutoParameterName(self) + "_", values, dbType, precision, scale, size, isNullable);
 
         public static void ToInParameter<T>(this ISqlDefinitionBuilder self,
             string parameterPrefix, IEnumerable<T> values,
@@ -47,10 +69,20 @@ namespace Km.Toi.Template
 
             if (values == null || !values.Any()) throw new ArgumentNullException(nameof(values));
 
+            if (string.IsNullOrEmpty(dbType))
+            {
+                var map = DbTypeNameMap.Default();
+                var valueType = typeof(T);
+                if (map.ContainsKey(valueType))
+                {
+                    dbType = map[valueType];
+                }
+            }
+
             var paramDefinitions = values.Select((v, i) =>
             {
-                var parameterText = string.Format(self.Options.ParameterFormat, $"{parameterPrefix}{i}");
-                return new ParameterDefinition(parameterText, v)
+                var parameterName = $"{parameterPrefix}{i}";
+                return new ParameterDefinition(parameterName, v)
                 {
                     DbType = dbType,
                     Precision = precision,
@@ -61,12 +93,26 @@ namespace Km.Toi.Template
             });
             self.Text.ReplacePrev(v =>
             {
-                return $"{v.Substring(0, v.LastIndexOf("(", StringComparison.InvariantCulture))}( {paramDefinitions.Select(p => p.Name).ConcatWith(", ")}";
+                return $"{v.Substring(0, v.LastIndexOf("(", StringComparison.InvariantCulture))}( {paramDefinitions.Select(p => string.Format(self.Options.ParameterFormat, p.Name)).ConcatWith(", ")}";
             });
             foreach(var p in paramDefinitions)
             {
                 self.Parameter.Add(p);
             }
+        }
+
+        private static string CreateAutoParameterName(ISqlDefinitionBuilder builder)
+        {
+            var names = builder.Parameter.GetNames().ToList();
+            foreach (var index in Enumerable.Range(names.Count, int.MaxValue - names.Count))
+            {
+                var parameterName = string.Format(DefaultAutoParameterNameFormat, index);
+                if (!names.Contains(parameterName))
+                {
+                    return parameterName;
+                }
+            }
+            throw new SqlTemplateyException(Resource.CantCreateAutoParameterTooManyParameter);
         }
     }
 }

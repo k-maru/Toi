@@ -8,5 +8,7 @@ namespace Km.Toi.Template.Builders
     public interface IParameterHolder
     {
         IEnumerable<ParameterDefinition> GetParameters();
+
+        IEnumerable<ParameterDefinition> GetAllParameters();
     }
 }

@@ -26,5 +26,10 @@ namespace Km.Toi.Template.Builders
         {
             yield return definition;
         }
+
+        public IEnumerable<ParameterDefinition> GetAllParameters()
+        {
+            return GetParameters();
+        }
     }
 }

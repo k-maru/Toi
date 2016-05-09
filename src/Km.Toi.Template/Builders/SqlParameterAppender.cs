@@ -45,5 +45,7 @@ namespace Km.Toi.Template.Builders
             }
             return this.builder;
         }
+
+        public IEnumerable<string> GetNames() => elements.GetAllParameters().Select(p => p.Name);
     }
 }

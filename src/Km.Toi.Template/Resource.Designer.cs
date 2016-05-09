@@ -79,11 +79,29 @@ namespace Km.Toi.Template {
         }
         
         /// <summary>
+        ///   パラメーターの数が多すぎるため自動的にパラメーター名を作成できませんでした。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CantCreateAutoParameterTooManyParameter {
+            get {
+                return ResourceManager.GetString("CantCreateAutoParameterTooManyParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   指定されたブロック名は既に設定されています。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string DuplicateBlockName {
             get {
                 return ResourceManager.GetString("DuplicateBlockName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SQLテンプレートの処理中に例外が発生しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string GeneralErrorMessage {
+            get {
+                return ResourceManager.GetString("GeneralErrorMessage", resourceCulture);
             }
         }
         

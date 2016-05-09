@@ -263,5 +263,23 @@ namespace Km.Toi.Template.Test.Builders
 
             Assert.Equal("Foo1BarBaz1", builder.Build().SqlText);
         }
+
+        [Fact]
+        public void すべてのパラメーター名が取得できる()
+        {
+            var builder = new SqlDefinitionBuilder();
+            builder.Text.Add("SELECT * FROM FOO ")
+                    .StartBlock("Block 1")
+                        .Text.Add("WHERE A = @A ").Parameter.Add("A", 1)
+                    .EndBlock()
+                    .Text.Add("AND B = @B").Parameter.Add("B", 2)
+                    .Text.Add("AND C = @C").Parameter.Add("C", 3);
+            var names = builder.Parameter.GetNames();
+            Assert.Equal(3, names.Count());
+            Assert.True(names.Any(n => n == "A"));
+            Assert.True(names.Any(n => n == "B"));
+            Assert.True(names.Any(n => n == "C"));
+            Assert.False(names.Any(n => n == "D"));
+        }
     }
 }

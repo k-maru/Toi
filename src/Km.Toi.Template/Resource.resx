@@ -123,8 +123,14 @@
   <data name="BlockNameNotFound" xml:space="preserve">
     <value>指定されたブロック名がは設定されていません。</value>
   </data>
+  <data name="CantCreateAutoParameterTooManyParameter" xml:space="preserve">
+    <value>パラメーターの数が多すぎるため自動的にパラメーター名を作成できませんでした。</value>
+  </data>
   <data name="DuplicateBlockName" xml:space="preserve">
     <value>指定されたブロック名は既に設定されています。</value>
+  </data>
+  <data name="GeneralErrorMessage" xml:space="preserve">
+    <value>SQLテンプレートの処理中に例外が発生しました。</value>
   </data>
   <data name="ModelIsMustBePublic" xml:space="preserve">
     <value>パラメーターモデルクラスはパブリックである必要があります。</value>
