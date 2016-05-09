@@ -82,10 +82,6 @@
     <Content Include="Northwind.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Northwind_log.ldf">
-      <DependentUpon>Northwind.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestFiles\SelectProductByName.tmpl.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
