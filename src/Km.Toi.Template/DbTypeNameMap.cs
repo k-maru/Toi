@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template
 {
+    /// <summary>
+    /// CLR型と <see cref="DbTypeName"/> で定義されたデータベース型名とのマッピングを定義します。
+    /// </summary>
     public sealed class DbTypeNameMap: Dictionary<Type, string>
     {
         
@@ -13,7 +16,10 @@ namespace Km.Toi.Template
         {
 
         }
-
+        /// <summary>
+        /// 既定のマッピング情報を生成します。
+        /// </summary>
+        /// <returns>既定のマッピング情報</returns>
         public static DbTypeNameMap Default() => new DbTypeNameMap
         {
             [typeof(byte)] = DbTypeName.Byte,

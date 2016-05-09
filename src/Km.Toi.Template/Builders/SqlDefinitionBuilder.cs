@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template.Builders
 {
-    public sealed class SqlDefinitionBuilder : ISqlDefinitionBuilder
+    sealed class SqlDefinitionBuilder : ISqlDefinitionBuilder
     {
         private CompositeSqlDefinitionElement root;
 

@@ -51,9 +51,10 @@ namespace Km.Toi.Template
                 return CSharpScript.Create(parseResult.Code, scriptOptions, globalsType).CreateDelegate();
             });
 
-            var global = Activator.CreateInstance(globalsType, model, new SqlDefinitionBuilder(options)) as IGlobals;
+            var builder = new SqlDefinitionBuilder(options);
+            var global = Activator.CreateInstance(globalsType, model, builder) as IGlobals;
             await runner(global);
-            return global.Builder.Build();
+            return builder.Build();
         }
 
         public async Task<SqlDefinition> ExecuteAsync(string sqlTemplate) =>
@@ -74,13 +75,13 @@ namespace Km.Toi.Template
 
     public interface IGlobals {
 
-        SqlDefinitionBuilder Builder { get; }
+        ISqlDefinitionBuilder Builder { get; }
     }
 
 
     public class Globals<T>: IGlobals
     {
-        public Globals(T model, SqlDefinitionBuilder builder)
+        public Globals(T model, ISqlDefinitionBuilder builder)
         {
             this.Model = model;
             this.Builder = builder;
@@ -88,7 +89,7 @@ namespace Km.Toi.Template
 
         public T Model { get; }
 
-        public SqlDefinitionBuilder Builder { get; }
+        public ISqlDefinitionBuilder Builder { get; }
 
     }
 

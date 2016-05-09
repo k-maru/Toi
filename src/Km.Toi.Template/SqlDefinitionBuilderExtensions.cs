@@ -9,10 +9,22 @@ using System.Threading.Tasks;
 
 namespace Km.Toi.Template
 {
+    /// <summary>
+    /// <see cref="ISqlDefinitionBuilder"/> に対する拡張メソッドを定義します。
+    /// </summary>
     public static class SqlDefinitionBuilderExtensions
     {
         private static readonly string DefaultAutoParameterNameFormat = "p{0}";
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="value"></param>
+        /// <param name="dbType"></param>
+        /// <param name="precision"></param>
+        /// <param name="scale"></param>
+        /// <param name="size"></param>
+        /// <param name="isNullable"></param>
         public static void ToAutoNameParameter(this ISqlDefinitionBuilder self,
             object value, string dbType = null, byte? precision = null,
             byte? scale = null, int? size = null, bool? isNullable = null) =>
