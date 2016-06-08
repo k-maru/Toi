@@ -79,8 +79,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Northwind.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Northwind.mdf" />
+    <Content Include="Northwind_log.ldf">
+      <DependentUpon>Northwind.mdf</DependentUpon>
     </Content>
     <Content Include="TestFiles\SelectProductByName.tmpl.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

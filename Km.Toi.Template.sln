@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.EntityFramework", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Km.Toi.EntityFramework.Test", "test\Km.Toi.EntityFramework.Test\Km.Toi.EntityFramework.Test.csproj", "{E7DFFA6F-761C-4216-A131-480EE3C03DFA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{B2C7A0A6-F9D4-4A5A-BE6A-CFC219E188D6}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

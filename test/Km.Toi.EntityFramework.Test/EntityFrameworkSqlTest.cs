@@ -13,14 +13,14 @@ namespace Km.Toi.EntityFramework.Test
     {
         public EntityFrameworkSqlTest()
         {
-            var context = NorthwindContext.CreateSqlServer();
+            var context = NorthwindContext.CreateSQLite();
             NorthwindData.CreateProducts(context);
         }
 
         [Fact]
         public async Task 引数無しで実行できる()
         {
-            using(var context = NorthwindContext.CreateSqlServer())
+            using(var context = NorthwindContext.CreateSQLite())
             {
                 var tmplSql = new EntityFrameworkSql(context);
                 var result = await tmplSql.QueryAsync<Product>("TestFiles\\SelectAllProduct.tmpl.sql");
@@ -31,7 +31,7 @@ namespace Km.Toi.EntityFramework.Test
         [Fact]
         public async Task パラメーターを指定して実行できる()
         {
-            using (var context = NorthwindContext.CreateSqlServer())
+            using (var context = NorthwindContext.CreateSQLite())
             {
                 var tmplSql = new EntityFrameworkSql(context);
                 var result = await tmplSql.QueryAsync<Product>("TestFiles\\SelectProductByName.tmpl.sql", 
